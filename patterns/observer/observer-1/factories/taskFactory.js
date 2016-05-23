@@ -2,6 +2,7 @@
 function taskFactory(data, observable) {
   function save() {
     console.log('save ' + this.message)
+    this.notify()
   }
 
   function addObserver(observer) {
@@ -14,7 +15,6 @@ function taskFactory(data, observable) {
       this.observable.get(i)(this)
     }
   }
-
 
   return {
     message: data.message,

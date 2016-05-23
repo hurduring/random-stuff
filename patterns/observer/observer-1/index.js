@@ -9,5 +9,5 @@ let fetchService = observersFactory.fetcher()
 
 task.addObserver(notificationService.update)
 task.addObserver(fetchService.update)
-task.notify()
+task.save()
 
