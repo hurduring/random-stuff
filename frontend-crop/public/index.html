@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.1/cropper.css" type="text/css"/>
+</head>
+<body>
+
+<!--<form method='post' action='/upload' enctype="multipart/form-data">-->
+<!--<input type="file" id="input-file-3" name="input-file-3">-->
+<!--<input type='submit'>-->
+<!--</form>-->
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.1/cropper.js"></script>
+
+<img id="image" src="img.png" alt="">
+
+<button id="button">button</button>
+
+
+<img id="image-cropped" src="" alt="">
+
+<script>
+
+  function toBlob(dataURI, dataTYPE) {
+    var binary = atob(dataURI.split(',')[1]), array = [];
+    for (var i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
+    return new Blob([new Uint8Array(array)], {type: dataTYPE});
+  }
+
+  var image = document.getElementById('image');
+  var cropper = new Cropper(image, {
+    aspectRatio: 16 / 9
+  });
+
+  document.getElementById('button').addEventListener('click', function (e) {
+//    var preview = document.getElementById('image-cropped');
+//    var reader = new FileReader();
+//
+//    reader.addEventListener("load", function () {
+//      preview.src = reader.result;
+//    }, false);
+//
+//    console.log(cropper.getCroppedCanvas().toDataURL('image/jpeg'))
+//
+//    var blob = toBlob(cropper.getCroppedCanvas().toBlob('image/jpeg'), 'image/jpeg');
+//
+//    reader.readAsDataURL(blob);
+
+
+    cropper.getCroppedCanvas().toBlob(function (blob) {
+        var formData = new FormData();
+
+        function blobToFile(theBlob, fileName) {
+          theBlob.lastModifiedDate = new Date();
+          theBlob.name = fileName;
+          return theBlob;
+        }
+
+//        var file = new File([blob], "blobster", {type: 'image/png'});
+
+
+        formData.append('croppedImage', blobToFile(blob, 'derp.png'));
+
+        // Use `jQuery.ajax` method
+        $.ajax('/upload', {
+          method: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function () {
+            console.log('Upload success');
+          },
+          error: function () {
+            console.log('Upload error');
+          }
+        });
+      }
+    );
+
+
+  })
+
+  //  function previewFile() {
+  //  var preview = document.querySelector('#image-cropped');
+  //  var reader  = new FileReader();
+  //
+  //  reader.addEventListener("load", function () {
+  //    preview.src = reader.result;
+  //  }, false);
+  //
+  //    reader.readAsDataURL(file);
+  //}
+
+</script>
+
+
+</body>
+</html>
