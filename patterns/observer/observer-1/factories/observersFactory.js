@@ -4,10 +4,14 @@ function notificationFactory() {
 
   function update(task) {
     console.log(message + ' ' + task.user)
+    message = 'derp';
   }
 
   return {
-    update: update
+    update: update,
+    getMessage: function(){
+      return message
+    }
   }
 }
 
@@ -19,7 +23,10 @@ function fetchFactory() {
   }
 
   return {
-    update: update
+    update: update,
+    getMessage: function(){
+      return message
+    }
   }
 }
 

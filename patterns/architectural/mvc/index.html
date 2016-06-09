@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="row container">
+    <div class="col-xs-4">
+        <select id="list" class="form-control" size="10"></select>
+    </div>
+    <div class="col-xs-8">
+        <button id="plusBtn" class="btn btn-default btn-block">+</button>
+        <button id="minusBtn" class="btn btn-default btn-block">-</button>
+    </div>
+    <div id="derp"></div>
+</div>
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script src="scripts.js"></script>
+<script>
+
+
+$(function () {
+    var model = new ListModel(['PHP', 'JavaScript']),
+        view = new ListView(model, {
+            'list': $('#list'),
+                'addButton': $('#plusBtn'),
+                'delButton': $('#minusBtn')
+        }),
+        controller = new ListController(model, view),
+        kerp = new DivView(model, {
+            'list': $('#derp')
+        });
+
+    view.show();
+    kerp.show();
+});
+
+</script>
+</body>
+</html>
