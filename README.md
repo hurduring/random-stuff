@@ -1,2 +1,2 @@
 # random-stuff
-random stuff for syncronazing between computers
+random stuff for synchronization between computers
